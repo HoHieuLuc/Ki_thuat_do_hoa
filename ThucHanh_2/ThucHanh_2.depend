@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1589808225 source:d:\thuchanh_2\main.cpp
+	<graphics.h>
+	<math.h>
+	<stdio.h>
+
