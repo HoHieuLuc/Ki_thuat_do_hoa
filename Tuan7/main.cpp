@@ -53,8 +53,8 @@ void Phepquay(int a[][2], int t[][2], int n){
         s=sin(m * M_PI/180);
 
         for(int i=0; i<n; i++){
-            t[i][0] = floor(a[i][0]*c + a[i][1] * s); // x1 = x1*c + y1*s
-            t[i][1] = floor(-a[i][0]*s + a[i][1] * c); // y1 = -x1*s + y1*c
+            t[i][0] = roundf(a[i][0]*c + a[i][1] * s); // x1 = x1*c + y1*s
+            t[i][1] = roundf(-a[i][0]*s + a[i][1] * c); // y1 = -x1*s + y1*c
         }
         //cleardevice();
         Vedoituong(t);

@@ -20,7 +20,7 @@ void DDA_line(int x1, int y1, int x2, int y2){
 
     float x=x1;
     float y=y1;
-    for(int i=0; i<=steps;i++){
+    for(int i=0; i<steps;i++){
         putpixel(x,y,7);
         x+=xt;
         y+=yt;
