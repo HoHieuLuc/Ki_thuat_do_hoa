@@ -26,12 +26,12 @@ void display(void)
         tam=0;
     if(tam<0)
         tam=355;
-    printf("tam = %d",tam);
+    printf("Goc quay = %d",tam);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//Xóa mọi pixel
     glColor3f(1.0, 1.0, 1.0);//Thiết lập màu vẽ
     glPushMatrix();// lưu lại ma trận hiện hành
     glRotatef((GLfloat)tam, 1.0, 1.0, 1.0);//Xoay 1 góc = tam
-    /* vẽ 9 đường, mỗi đường được nối bởi 31 điểm */
+    /* vẽ 18 đường, mỗi đường được nối bởi 31 điểm */
     for (j = 0; j <= 8; j++)
     {
         glBegin(GL_LINE_STRIP);//Bắt đầu vẽ đường thẳng nối nhau
