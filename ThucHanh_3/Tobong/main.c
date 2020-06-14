@@ -1,10 +1,12 @@
 #include <gl\glut.h>
 
+int quay=0;
 void RenderScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     gluLookAt(5.0, 5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    glRotatef((GLfloat)quay, 0.0, 1.0, 0.0);
     glPushMatrix();
     glutSolidCube(3.0);
     glPopMatrix();
@@ -35,6 +37,23 @@ void Init()
     GLfloat shininess = 50.0f;
     glMateriali(GL_FRONT, GL_SHININESS, shininess);
 }
+
+/* xử lý sự kiện bàn phím */
+void keyboard (unsigned char key, int x, int y)
+{
+    switch (key){
+        case 'd': case 'D':
+            quay+=5;
+            glutPostRedisplay(); // vẽ lại
+            break;
+        case 'a': case 'A':
+            quay-=5;
+            glutPostRedisplay(); // vẽ lại
+            break;
+        default:
+            break;
+    }
+}
 int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
@@ -45,5 +64,6 @@ int main(int argc, char *argv[])
     Init();
     glutReshapeFunc(ReShape);
     glutDisplayFunc(RenderScene);
+    glutKeyboardFunc(keyboard);
     glutMainLoop();
 }
