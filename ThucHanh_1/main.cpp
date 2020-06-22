@@ -59,12 +59,13 @@ void Bresenham_line(int x1, int y1, int x2, int y2)
     else
         sy=-1;
     int p=dx-dy;
+    int p2;
     while(true)
     {
         putpixel(x1,y1,7);
         if(x1==x2 && y1==y2) // Nếu 2 điểm gặp nhau thì dừng
             break;
-        int p2=2*p;
+        p2=2*p;
         if(p2 >= -dy)
         {
             p=p-dy;
@@ -88,7 +89,7 @@ void Midpoint_line(int x1,int y1,int x2, int y2){
     putpixel(x,y,7);
     p=a+b/2;        //tính vị trí tương đối của điểm midpoint so với đường thẳng
     while(x < x2){
-        if(p < 0){
+        if(p < 0){ //p < 0 => chọn S
             p+=a;
         }else{
             y++;
