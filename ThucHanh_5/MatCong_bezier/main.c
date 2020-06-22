@@ -45,6 +45,16 @@ void display(void)
             glEvalCoord2f((GLfloat)j / 8.0, (GLfloat)i / 30.0);
         glEnd();
     }
+    glColor3f(0,1,1);
+    glPointSize(4);
+    glBegin(GL_POINTS);
+    for(i=0;i<4;i++){
+        for(j=0;j<4;j++){
+            glVertex3f(ctrlpoints[i][j][0],ctrlpoints[i][j][1],ctrlpoints[i][j][2]);
+        }
+    }
+    glEnd();
+
     glPopMatrix();
     glFlush();
 }
@@ -62,14 +72,7 @@ void init(void)
     glEnable(GL_LIGHT0);
     GLfloat light_pos [] = {0.0, 0.0, 1.0, 0.0};
     glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
-    GLfloat ambient [] = {1.0, 0.0, 0.0, 1.0};
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
-    GLfloat diff_use [] = {0.0, 0.5, 0.0, 1.0};
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diff_use);
-    GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
-    GLfloat shininess = 50.0f;
-    glMateriali(GL_FRONT, GL_SHININESS, shininess);
+
 }
 
 /* các thao tác cần làm khi cửa sổ bị thay đổi kích thước */

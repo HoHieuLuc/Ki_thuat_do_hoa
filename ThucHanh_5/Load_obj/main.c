@@ -72,9 +72,9 @@ void loadObj(char *fname)   //Đối tượng gồm các tam giác ghép lại v
         for(i=0;i<m1;i++){
             //glBegin(GL_LINE_STRIP);
             f1=mat[i][0]; f2=mat[i][1]; f3=mat[i][2];
-            //glColor3f(1.0,1.0,1.0);
+            glColor3f(1.0,1.0,1.0);
             glVertex3f(dinh[f1][0],dinh[f1][1],dinh[f1][2]);
-            //glColor3f(0.1,0.1,0.1);
+            glColor3f(0.9,0.9,0.9);
             glVertex3f(dinh[f2][0],dinh[f2][1],dinh[f2][2]);
             //glColor3f(1.0,1.0,1.0);
             glVertex3f(dinh[f3][0],dinh[f3][1],dinh[f3][2]);
