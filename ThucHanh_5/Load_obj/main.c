@@ -3,7 +3,8 @@
 #include<stdio.h>
 
 GLfloat scale = 500;
-GLfloat translatey = -60;
+GLfloat translateY = 0;
+GLfloat translateZ = -105;
 GLuint doituong;
 float quay;
 char ch='1';
@@ -12,16 +13,16 @@ char ch='1';
 
 void loadObj(char *fname)   //Đối tượng gồm các tam giác ghép lại với nhau
 {
-    int n = 2503; //Tổng số đỉnh (vertices)
-    int m = 4968; //Tổng số mặt (faces)
+    //int n = 250000; //Tổng số đỉnh (vertices)
+    //int m = 250000; //Tổng số mặt (faces)
     FILE *fp;
     int read;
     GLfloat x, y, z;
     char ch;
 
-    GLfloat dinh[n][3];
-    GLfloat mat[m][3];
-    int f1,f2,f3;
+    static GLfloat dinh[100000][3];
+    static GLfloat mat[100000][3];
+    int f1,f2,f3,t,m1;
 
     doituong=glGenLists(1);
     fp=fopen(fname,"r");
@@ -40,29 +41,44 @@ void loadObj(char *fname)   //Đối tượng gồm các tam giác ghép lại v
 
         while(!(feof(fp)))
         {
-            read=fscanf(fp,"%c %f %f %f",&ch,&x,&y,&z);
-            if(read==4&&ch=='v')//đọc vertices
-            {
-                dinh[i][0]=x;
-                dinh[i][1]=y;
-                dinh[i][2]=z;
-                i++;
+            read = fscanf(fp,"%c",&ch);
+            if(ch == 'v'){
+                read=fscanf(fp,"%f %f %f",&x,&y,&z);
+                if(read == 3){
+                    dinh[i][0]=x;
+                    dinh[i][1]=y;
+                    dinh[i][2]=z;
+                    i++;
+                }
             }
-            if(read==4&&ch=='f')//đọc faces
-            {
-                mat[j][0]=x;
-                mat[j][1]=y;
-                mat[j][2]=z;
-                j++;
+
+            else if(ch == 'f'){
+                //read=fscanf(fp,"%f %f %f",&x,&y,&z);
+                read=fscanf(fp,"%f/%d/%d %f/%d/%d %f/%d/%d",&x,&t,&t,&y,&t,&t,&z,&t,&t);
+                //if(read==3){
+                if(read==9){
+                    mat[j][0]=x;
+                    mat[j][1]=y;
+                    mat[j][2]=z;
+                    j++;
+                }
             }
+            else
+                fscanf(fp, "\n");
+            m1=j;
         }
-        glColor3f(0.0,1.0,0.0);
+        glColor3f(1.0,1.0,1.0);
         glBegin(GL_TRIANGLES);//Vẽ tam giác từ các đỉnh từ các faces đã lưu trong mảng mat
-        for(i=0;i<m;i++){
+        for(i=0;i<m1;i++){
+            //glBegin(GL_LINE_STRIP);
             f1=mat[i][0]; f2=mat[i][1]; f3=mat[i][2];
+            //glColor3f(1.0,1.0,1.0);
             glVertex3f(dinh[f1][0],dinh[f1][1],dinh[f1][2]);
+            //glColor3f(0.1,0.1,0.1);
             glVertex3f(dinh[f2][0],dinh[f2][1],dinh[f2][2]);
+            //glColor3f(1.0,1.0,1.0);
             glVertex3f(dinh[f3][0],dinh[f3][1],dinh[f3][2]);
+            //glEnd();
         }
         glEnd();
     }
@@ -88,9 +104,9 @@ void reshape(int width,int height)
 void drawobj()
 {
  	glPushMatrix();
- 	glTranslatef(0,translatey,-105);
+ 	glTranslatef(0,translateY,translateZ);
  	glColor3f(1.0,1.0,1.0);
- 	glScalef(scale,scale,scale);
+ 	//glScalef(scale,scale,scale);
  	glRotatef(quay,0,1,0);
  	glCallList(doituong);
  	glPopMatrix();
@@ -111,25 +127,30 @@ void keyboard (unsigned char key, int x, int y)
             break;
         /* S, W để phóng to, thu nhỏ */
         case 'w': case 'W':
-            scale+=50;
+            translateZ+=5;
             glutPostRedisplay();
             break;
         case 's': case 'S':
-            scale-=50;
+            translateZ-=5;
             glutPostRedisplay();
             break;
         /* Q, E để di chuyển vật thể theo trục y */
         case 'q': case 'Q':
-            translatey+=5;
+            translateY+=5;
             glutPostRedisplay();
             break;
         case 'e': case 'E':
-            translatey-=5;
+            translateY-=5;
             glutPostRedisplay();
             break;
         default:
             break;
     }
+}
+
+void init(void)
+{
+    glEnable(GL_DEPTH_TEST);// bật chức năng cho phép loại bỏ một phần của đối tượng bị che bởi đối tượng khác
 }
 
 void display(void)
@@ -147,11 +168,12 @@ int main(int argc,char **argv)
 	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
 	glutInitWindowSize(800,450);
 	glutInitWindowPosition(20,20);
-	glutCreateWindow("ObjLoader");;
+	glutCreateWindow("ObjLoader");
+	init();
 	glutReshapeFunc(reshape);
     glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
-    loadObj("bunny.obj");
+    loadObj("Seahawk.obj");
 	glutMainLoop();
 	return 0;
 }

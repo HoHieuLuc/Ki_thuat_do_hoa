@@ -52,8 +52,8 @@ void Phepquay(int a[][2], int t[][2], int n){
 
 
     for(int i=0; i<n; i++){
-        t[i][0] = floor(a[i][0]*c + a[i][1] * s); // x1 = x1*c + y1*s
-        t[i][1] = floor(-a[i][0]*s + a[i][1] * c); // y1 = -x1*s + y1*c
+        t[i][0] = round(a[i][0]*c + a[i][1] * s); // x1 = x1*c + y1*s
+        t[i][1] = round(-a[i][0]*s + a[i][1] * c); // y1 = -x1*s + y1*c
     }
     Vedoituong(t);
 }
@@ -75,9 +75,12 @@ int main(){
     line(getmaxx()/2,0,getmaxx()/2,getmaxy());
     Taodoiduong(a);
     Vedoituong(a);
-    Tinhtien(a,t,n);
+    //Tinhtien(a,t,n);
     Phepquay(a,t,n);
-    Phepcogian(a,t,n);
+    Phepquay(t,t,n);
+    Phepquay(t,t,n);
+    Phepquay(t,t,n);
+    //Phepcogian(a,t,n);
     getch();
     closegraph();
     return 0;
