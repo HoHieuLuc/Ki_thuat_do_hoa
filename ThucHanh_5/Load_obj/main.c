@@ -2,8 +2,8 @@
 #include<GL/glut.h>
 #include<stdio.h>
 
-GLfloat scale = 500;
-GLfloat translateY = 0;
+GLfloat scale=1;
+GLfloat translateY = -30;
 GLfloat translateZ = -105;
 GLuint doituong;
 float quay;
@@ -13,8 +13,6 @@ char ch='1';
 
 void loadObj(char *fname)   //Đối tượng gồm các tam giác ghép lại với nhau
 {
-    //int n = 250000; //Tổng số đỉnh (vertices)
-    //int m = 250000; //Tổng số mặt (faces)
     FILE *fp;
     int read;
     GLfloat x, y, z;
@@ -42,7 +40,7 @@ void loadObj(char *fname)   //Đối tượng gồm các tam giác ghép lại v
         while(!(feof(fp)))
         {
             read = fscanf(fp,"%c",&ch);
-            if(ch == 'v'){
+            if(ch == 'v'){  //đọc các đỉnh
                 read=fscanf(fp,"%f %f %f",&x,&y,&z);
                 if(read == 3){
                     dinh[i][0]=x;
@@ -52,10 +50,8 @@ void loadObj(char *fname)   //Đối tượng gồm các tam giác ghép lại v
                 }
             }
 
-            else if(ch == 'f'){
-                //read=fscanf(fp,"%f %f %f",&x,&y,&z);
+            else if(ch == 'f'){ //đọc các mặt
                 read=fscanf(fp,"%f/%d/%d %f/%d/%d %f/%d/%d",&x,&t,&t,&y,&t,&t,&z,&t,&t);
-                //if(read==3){
                 if(read==9){
                     mat[j][0]=x;
                     mat[j][1]=y;
@@ -70,15 +66,10 @@ void loadObj(char *fname)   //Đối tượng gồm các tam giác ghép lại v
         glColor3f(1.0,1.0,1.0);
         glBegin(GL_TRIANGLES);//Vẽ tam giác từ các đỉnh từ các faces đã lưu trong mảng mat
         for(i=0;i<m1;i++){
-            //glBegin(GL_LINE_STRIP);
             f1=mat[i][0]; f2=mat[i][1]; f3=mat[i][2];
-            glColor3f(1.0,1.0,1.0);
             glVertex3f(dinh[f1][0],dinh[f1][1],dinh[f1][2]);
-            glColor3f(0.9,0.9,0.9);
             glVertex3f(dinh[f2][0],dinh[f2][1],dinh[f2][2]);
-            //glColor3f(1.0,1.0,1.0);
             glVertex3f(dinh[f3][0],dinh[f3][1],dinh[f3][2]);
-            //glEnd();
         }
         glEnd();
     }
@@ -105,8 +96,7 @@ void drawobj()
 {
  	glPushMatrix();
  	glTranslatef(0,translateY,translateZ);
- 	glColor3f(1.0,1.0,1.0);
- 	//glScalef(scale,scale,scale);
+ 	glScalef(scale,scale,scale);
  	glRotatef(quay,0,1,0);
  	glCallList(doituong);
  	glPopMatrix();
@@ -143,6 +133,15 @@ void keyboard (unsigned char key, int x, int y)
             translateY-=5;
             glutPostRedisplay();
             break;
+        /* J, K để tăng giảm kích thước vật thể */
+        case 'j': case 'J':
+            scale+=5;
+            glutPostRedisplay();
+            break;
+        case 'k': case 'K':
+            scale-=5;
+            glutPostRedisplay();
+            break;
         default:
             break;
     }
@@ -151,11 +150,17 @@ void keyboard (unsigned char key, int x, int y)
 void init(void)
 {
     glEnable(GL_DEPTH_TEST);// bật chức năng cho phép loại bỏ một phần của đối tượng bị che bởi đối tượng khác
+    glShadeModel(GL_SMOOTH);// // thiết lập chế độ shading là smooth
+    /* Tô bóng cho vật thể */
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    GLfloat light_pos [] = {1000.0, 1000.0, 1000.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
 }
 
 void display(void)
 {
-   	glClearColor (0.0,0.0,0.0,1.0);
+   	glClearColor (1.0,1.0,1.0,1.0);
    	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    	glLoadIdentity();
    	drawobj();
