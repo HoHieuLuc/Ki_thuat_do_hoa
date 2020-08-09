@@ -27,6 +27,7 @@ Tuần 7:
 
 
 y=sinx:
+
 #include<stdio.h>
 #include<graphics.h>
 #include<conio.h>
