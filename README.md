@@ -35,6 +35,7 @@ y=sinx:
 #include<math.h>
 
 int main(){
+
     int gd=DETECT,gm,mx,my;
     float x,y,k,kx;
     initgraph(&gd,&gm,NULL);
