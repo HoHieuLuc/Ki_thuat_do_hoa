@@ -2,20 +2,26 @@ Thực hành 1:
 - Đường thẳng: Bresenham, DDA, Midpoint
 - Đường tròn: Bresenham, Midpoint
 - Ellipse : Bresenham, Midpoint
+
 Thực hành 2:
 - Quay, tịnh tiến, co giãn
+
 Thực hành 3, 4, 5*:
 - Đường con bezier, mặt cong bezier, tô bóng.
+
 Thực hành 5:
 - Load obj
+
 Thực hành 6:
 - Hoa fractal, cây fractal
+
 Thực hành 7:
 - mesh, voronoi
 
 
 Tuần 6:
 - Quay, vị tự
+
 Tuần 7:
 - Quay, tịnh tiến, co giãn, vị tự, vẽ hình vuông
 
