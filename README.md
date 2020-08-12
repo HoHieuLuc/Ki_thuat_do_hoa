@@ -59,3 +59,44 @@ int main(){
 
     closegraph();
 }
+
+
+Câu 1b:
+int main(){
+    int gd,gm; gd=DETECT;
+    int mx,my;
+    initgraph(&gd,&gm,NULL);
+
+    circle(100,100,50);
+    putpixel(10,10,0);
+    float x,y,k,kx,a;
+    
+	mx=getmaxx()/2;my=getmaxy()/2;
+
+	
+	x=0; kx=2*M_PI/mx;
+	k=my/2;
+	a=-1;
+	
+	while (x<getmaxx())
+	{
+	    y=a*k*sin((x-mx)*kx);
+	    cleardevice();
+	    circle((int)round(x),my-(int)round(y),50);
+	    x=x+0.1;
+	}
+	
+	x=0;
+	while (x<getmaxx())
+	{
+	    y=a*k*sin((x-mx)*kx);
+	    putpixel((int)round(x),my-(int)round(y),RED);
+	    x=x+0.1;
+	}
+	line(0,my,2*mx,my);
+	line(mx,0,mx,2*my);
+
+
+    getch();
+}
+
