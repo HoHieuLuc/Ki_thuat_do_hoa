@@ -7,7 +7,7 @@ Thực hành 2:
 - Quay, tịnh tiến, co giãn
 
 Thực hành 3, 4, 5*:
-- Đường con bezier, mặt cong bezier, tô bóng.
+- Đường cong bezier, mặt cong bezier, tô bóng.
 
 Thực hành 5:
 - Load obj
