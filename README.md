@@ -1,3 +1,5 @@
+LEGACY
+
 Thực hành 1:
 - Đường thẳng: Bresenham, DDA, Midpoint
 - Đường tròn: Bresenham, Midpoint
